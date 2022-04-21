@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head", { title: "Home" }) %>
+<body>
+    <%- include("./partials/navbar") %>
+    <div class="container p-3 ">
+        <h4>Categories:</h4>
+        <div class="btn-group">
+        <% categories.forEach(e => { %>
+            <a class="btn btn-success" href="/categories/<%= e.id %>"><%= e.name %></a>
+        <% }) %>
+        </div>
+        <hr>
+        <div class="mb-3 mt-3">
+            <form action="/" method="get">
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Search By Name" name="search">
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <h2>List Of Product</h2>
+        <div class="list d-flex flex-row flex-wrap .justify-content-between">
+            <% if (products.length) { %>
+                <% products.forEach(e => { %>
+                    <% const {id, name, imageUrl, price, CategoryId} = e %>
+                    <%- include('./partials/card', {id, name, CategoryId, imageUrl, price: formatter(price)}) %>
+                <% }) %>
+            <% } else { %>
+                <h2>Products is not exits.</h2>
+            <%}%>
+        </div>
+    </div>
+</body>
+</html>

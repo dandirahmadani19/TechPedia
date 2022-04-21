@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head", { title: "Detail Product" }) %>
+<body>
+    <%- include("./partials/navbar") %>
+    <div class="container p-3 ">
+        <h4> Shopping Cart </h4>
+        <% if (cart.length) { %>
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>Image</th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% cart.forEach((e, i) => { %>
+                        <tr>
+                            <td><%= i + 1 %></td>
+                            <td><img src="<%= e.imageUrl %>" width="150px" height="150px"></td>
+                            <td><%= e.name %></td>
+                            <td><%= formatter(e.price) %></td>
+                            <td><%= e.quantity %> pcs</td>
+                        </tr>
+                  <% }) %>
+                </tbody>
+            </table>
+            <a href="/cart/addtransaction" class="btn btn-primary">Beli</a>
+        <% } else { %>
+            <h2>Your shopping cart is still empty.</h2>
+        <% } %>
+    </div>
+</body>
+</html>

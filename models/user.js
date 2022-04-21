@@ -2,15 +2,13 @@
 const {
   Model
 } = require('sequelize');
+const bcrypt = require("bcryptjs");
+const sendEmail = require("../helpers/sendEmail");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+    
     static associate(models) {
-      // define association here
+      User.hasMany(models.Product);
     }
   }
   User.init({
@@ -20,6 +18,18 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     role: DataTypes.STRING
   }, {
+    hooks: {
+      beforeCreate(instance, option) {
+        const salt = bcrypt.genSaltSync(6);
+        const hash = bcrypt.hashSync(instance.password, salt);
+        instance.password = hash;
+      }
+    },
+    hooks: {
+      afterCreate(instance) {
+        sendEmail(instance.email, `Success Create New Account}`);
+      }
+    },
     sequelize,
     modelName: 'User',
   });
