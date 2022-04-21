@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head", { title: "Login" }) %>
+<body>
+    <div class="container p-5" style="width: 50%;">
+        <h1>Login</h1>
+        <form action="/login" method="post">
+            <div class="mb-3 mt-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" placeholder="Enter Email" name="email">
+            </div>
+            <div class="mb-3">
+              <label for="pwd" class="form-label">Password</label>
+              <input type="password" class="form-control" id="pwd" placeholder="Enter Password" name="password">
+            </div>
+            <div class="mb-3">
+              Belum Punya Akun ? Silahkan <a href="/register" class="btn btn-sm btn-secondary">Register</a> disini
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+          </form>
+    </div>
+</body>
+</html>
