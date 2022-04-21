@@ -113,7 +113,10 @@ class SellerController {
 
   static formAddCategory(req, res) {
     // res.send("form Add Produk");
-    res.render("sellerFormAddCategory");
+    let errors = req.query.error;
+    res.render("sellerFormAddCategory", {
+      errors
+    });
   }
 
   static addCategory(req, res) {
@@ -127,19 +130,28 @@ class SellerController {
         res.redirect("/seller/categories");
       })
       .catch((err) => {
+         if(err.name === "SequelizeValidationError"){
+          const errors = err.errors.map(el => {
+            return el.message
+          })  
+          return res.redirect(`/seller/categories/add?error=${errors}`)
+        }
         res.send(err);
       });
   }
 
   static formAddProduct(req, res) {
     // console.log(req.session.userId)
+    let errors = req.query.error;
     Category.findAll()
       .then((category) => {
         res.render("sellerFormAddProduct", {
           category,
+          errors
         });
       })
       .catch((err) => {
+        
         res.send(err);
       });
   }
@@ -163,6 +175,12 @@ class SellerController {
         res.redirect("/seller");
       })
       .catch((err) => {
+        if(err.name === "SequelizeValidationError"){
+          const errors = err.errors.map(el => {
+            return el.message
+          })  
+          return res.redirect(`/seller/products/add?error=${errors}`)
+        }
         res.send(err);
       });
   }
@@ -172,6 +190,7 @@ class SellerController {
     // console.log(req.params)
     let id = req.params.id;
     let produk;
+    let errors = req.query.error;
     Product.findOne({
       where: {
         id: id,
@@ -185,10 +204,12 @@ class SellerController {
         res.render("sellerFormEditProduct", {
           product: produk,
           category,
+          errors
         });
       })
       .catch((err) => {
-        res.send(err);
+        // res.send(err);
+        res.send(err)
       });
   }
   static updateProduct(req, res) {
@@ -214,7 +235,15 @@ class SellerController {
       .then((_) => {
         res.redirect("/seller");
       })
-      .catch((err) => [res.send(err)]);
+      .catch((err) => {
+        if(err.name === "SequelizeValidationError"){
+          const errors = err.errors.map(el => {
+            return el.message
+          })  
+          return res.redirect(`/seller/products/edit/${id}?error=${errors}`)
+        }
+        res.send(err)
+      });
   }
   static orderList(req, res) {
     // res.send("tampilin data transaksi yang statusny pending");
@@ -250,34 +279,11 @@ class SellerController {
           },
         });
       })
-    //   .then((transaction) => {
-    //     // console.log(transaction)
-    //     let id = [];
-    //     let by = [];
-    //     transaction.Products.forEach((el) => {
-    //       id.push(el.id);
-    //       by.push(el.TransactionItem.quantity);
-    //     });
-    //     console.log(id);
-    //     console.log(by);
-    //     return Product.decrement(
-    //       {
-    //         stock: {
-    //             by: by
-    //         },
-    //       },
-    //       {
-    //         where: {
-    //           id: id,
-    //         },
-    //       }
-    //     );
-    //   })
       .then(transaction => {
           console.log(transaction)
           return Product.decrement(
           {
-              stock: [+transaction.Products[0].TransactionItem.quantity]
+              stock: +transaction.Products[0].TransactionItem.quantity
           },
           {
               where: {

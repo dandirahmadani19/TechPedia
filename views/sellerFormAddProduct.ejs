@@ -11,6 +11,9 @@
     <a href="/">Logo</a>
     <a href="/seller">Seller Home</a>
     <a href="/seller/categories">Category</a>
+    <a href="/seller/orderlist">Order List</a>
+    <a href="/seller/historytransactions">History Transactions</a>
+    <a href="/seller/logout">Logout</a>
   </span>
   <h1>Add Product</h1>
   <form action="/seller/products/add" method="post">
@@ -33,8 +36,15 @@
     <input type="text" name="brand"><br>
     <label >ImageUrl:</label><br>
     <input type="text" name="imageUrl"><br>
-    <br><br>
+    <br>
+    <br>
     <input type="submit" value="Submit">
   </form> 
+  <%if(errors) {%>
+    <% errors  = errors.split(',')%>
+    <% errors.forEach(el => {%>
+      <p><%= el %></p>
+    <% }) %>
+    <%}%>
 </body>
 </html>
