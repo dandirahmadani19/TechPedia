@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add New Category</title>
+</head>
+<body>
+  <span>
+    <a href="/">Logo</a>
+    <a href="/seller">Seller Home</a>
+    <a href="/seller/categories">Category</a>
+    <a href="/seller/orderlist">Order List</a>
+    <a href="/seller/historytransactions">History Transactions</a>
+    <a href="/seller/logout">Logout</a>
+  </span>
+  <h1>Add Category</h1>
+  <form action="/seller/categories/add" method="post">
+    <label for="fname">Name:</label><br>
+    <input type="text" name="name"><br><br>
+    <input type="submit" value="Submit">
+  </form> 
+  <%if(errors) {%>
+    <% errors  = errors.split(',')%>
+    <% errors.forEach(el => {%>
+      <p><%= el %></p>
+    <% }) %>
+    <%}%>
+</body>
+</html>

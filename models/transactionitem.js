@@ -4,6 +4,9 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class TransactionItem extends Model {
+    totalPayment(quantity, price){
+      return quantity * price
+    }
     
     static associate(models) {
       // define association here

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add New Category</title>
+</head>
+<body>
+  <span>
+    <a href="/">Logo</a>
+    <a href="/seller">Seller Home</a>
+    <a href="/seller/categories">Category</a>
+    <a href="/seller/orderlist">Order List</a>
+    <a href="/seller/historytransactions">History Transactions</a>
+    <a href="/seller/logout">Logout</a>
+  </span>
+  <h1>Add Product</h1>
+  <form action="/seller/products/edit/<%= product.id %>" method="post">
+    <label>Name:</label><br>
+    <input type="text" name="name" value="<%= product.name %>"><br>
+    <label >Description:</label><br>
+    <input type="text" name="description" value="<%= product.description %>"><br>
+    <label >Price:</label><br>
+    <input type="number" name="price" value="<%= product.price %>"><br>
+    <label>Category:</label><br>
+    <select name="CategoryId"><br>
+      <option value="" selected disabled>Choose your category</option>
+      <% category.forEach(el => { %>
+        <% if(el.id === product.CategoryId) {%>
+        <option selected value="<%= el.id %>"><%= el.name %></option>
+        <% } else { %>
+        <option value="<%= el.id %>"><%= el.name %></option>
+        <% } %>
+      <% }) %>
+    </select><br>
+    <label>Stock:</label><br>
+    <input type="number" name="stock" value="<%= product.stock %>"><br>
+    <label >Brand:</label><br>
+    <input type="text" name="brand" value="<%= product.brand %>"><br>
+    <label >ImageUrl:</label><br>
+    <input type="text" name="imageUrl" value="<%= product.imageUrl %>"><br>
+    <br><br>
+    <input type="submit" value="Submit">
+  </form> 
+  <%if(errors) {%>
+    <% errors  = errors.split(',')%>
+    <% errors.forEach(el => {%>
+      <p><%= el %></p>
+    <% }) %>
+    <%}%>
+</body>
+</html>

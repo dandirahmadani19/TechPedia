@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <span>
+    <a href="/">Logo</a>
+    <a href="/seller">Seller Home</a>
+    <a href="/seller/categories">Category</a>
+    <a href="/seller/orderlist">Order List</a>
+    <a href="/seller/historytransactions">History Transactions</a>
+    <a href="/seller/logout">Logout</a>
+  </span>
+  <div>
+    <h1>Seller Home Page</h1>
+    <a href="/seller/products/add">Add New Product</a>
+  </div>
+  <div>
+    <form action="">
+      <input type="text" placeholder="Search.." name="search">
+      <button type="submit">search</button>
+    </form>
+    <br>
+  </div>
+  <Span>
+    Filter:
+    <a href="/seller">All</a>
+    <% category.forEach(el => { %>
+      <a href="/seller?CategoryId=<%= el.id %>"><%= el.name %></a>
+    <% }) %>
+  </Span>
+  <br>
+  <table>
+    <tr>
+      <th>Id</th>
+      <th>Image</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Category</th>
+      <th>Stock</th>
+      <th>Brand</th>
+      <th>Action</th>
+    </tr>
+    <% product.forEach(el => { %>
+      <tr>
+        <td><%= el.id %></td>
+        <td>
+          <img src="<%= el.imageUrl %>" alt="">
+        </td>
+        <td><%= el.name %></td>
+        <td><%= el.description %></td>
+        <td><%= el.price %></td>
+        <td><%= el.Category.name %></td>
+        <td><%= el.stock %></td>
+        <td><%= el.brand %></td>
+        <td>
+          <a href="/seller/products/edit/<%= el.id %>">Edit</a>
+          <a href="/seller/products/delete/<%= el.id %>">Delete</a>
+        </td>
+      </tr>
+    <% }) %>
+  </table>
+</body>
+</html>
