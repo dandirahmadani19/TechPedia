@@ -1,0 +1,23 @@
+[
+    {
+        "firstName":"admin",
+        "lastName":"admin",
+        "email":"admin@gmail.com",
+        "password":"1234",
+        "role":"seller"
+    },
+    {
+        "firstName":"burhan",
+        "lastName":"junaidi",
+        "email":"burhan@gmail.com",
+        "password":"1234",
+        "role":"buyer"
+    },
+    {
+        "firstName":"nurhayati",
+        "lastName":"chaniago",
+        "email":"nurhayati@gmail.com",
+        "password":"abcd",
+        "role":"buyer"
+    }
+]
