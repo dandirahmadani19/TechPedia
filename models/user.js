@@ -2,6 +2,10 @@
 const {
   Model
 } = require('sequelize');
+
+const bcrypt = require('bcryptjs');
+const { options } = require('pg/lib/defaults');
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -11,6 +15,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasMany(models.Transaction, {
+        foreignKey: "UserId"
+      })
     }
   }
   User.init({
@@ -20,6 +27,14 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     role: DataTypes.STRING
   }, {
+    hooks: {
+      beforeCreate: (instance, options) => {
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(instance.password, salt)
+
+        instance.password = hash
+      }
+    },
     sequelize,
     modelName: 'User',
   });

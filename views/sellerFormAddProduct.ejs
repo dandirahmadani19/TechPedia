@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add New Category</title>
+</head>
+<body>
+  <span>
+    <a href="/">Logo</a>
+    <a href="/seller">Seller Home</a>
+    <a href="/seller/categories">Category</a>
+  </span>
+  <h1>Add Product</h1>
+  <form action="/seller/products/add" method="post">
+    <label>Name:</label><br>
+    <input type="text" name="name"><br>
+    <label >Description:</label><br>
+    <input type="text" name="description"><br>
+    <label >Price:</label><br>
+    <input type="number" name="price"><br>
+    <label>Category:</label><br>
+    <select name="CategoryId"><br>
+      <option value="" selected disabled>Choose your category</option>
+      <% category.forEach(el => { %>
+        <option value="<%= el.id %>"><%= el.name %></option>
+      <% }) %>
+    </select><br>
+    <label>Stock:</label><br>
+    <input type="number" name="stock"><br>
+    <label >Brand:</label><br>
+    <input type="text" name="brand"><br>
+    <label >ImageUrl:</label><br>
+    <input type="text" name="imageUrl"><br>
+    <br><br>
+    <input type="submit" value="Submit">
+  </form> 
+</body>
+</html>

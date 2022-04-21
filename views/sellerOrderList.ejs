@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <span>
+      <a href="/">Logo</a>
+      <a href="/seller">Seller Home</a>
+      <a href="/seller/categories">Category</a>
+      <a href="/seller/orderlist">Order List</a>
+      <a href="/seller/historytransactions">History Transactions</a>
+      <a href="/seller/logout">Logout</a>
+    </span>
+    <h1>Order List</h1>
+    <% transaction.forEach(el => { %> <% if(el.status === 'pending'){ %>
+    <h3>Transaction Id : <%= el.id %></h3>
+    <a href="/seller/orderlist/<%= el.id %>">Process Order</a>
+    <table border="1">
+      <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>TotalPayment</th>
+      </tr>
+      <% el.Products.forEach(e => {%>
+      <tr>
+        <td><%= e.name %></td>
+        <td><%= e.TransactionItem.quantity %></td>
+        <td><%= e.TransactionItem.price %></td>
+        <td><%= e.TransactionItem.totalPayment( e.TransactionItem.quantity, e.TransactionItem.price) %></td>
+      </tr>
+      <% }) %>
+      <% } %>
+    </table>
+    <% }) %>
+  </body>
+</html>
