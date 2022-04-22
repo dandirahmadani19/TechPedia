@@ -18,7 +18,7 @@ class SellerController {
       .then((user) => {
         if (user) {
           const isValidPassword = bcrypt.compareSync(password, user.password);
-
+          console.log(isValidPassword);
           if (isValidPassword) {
             req.session.userId = user.id;
             req.session.role = user.role;

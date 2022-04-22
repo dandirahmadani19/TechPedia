@@ -3,7 +3,6 @@ const {
   Model
 } = require('sequelize');
 
-const { options } = require('pg/lib/defaults');
 const bcrypt = require("bcryptjs");
 const sendEmail = require("../helpers/sendEmail");
 module.exports = (sequelize, DataTypes) => {
@@ -79,10 +78,9 @@ module.exports = (sequelize, DataTypes) => {
       beforeCreate(instance, option) {
         const salt = bcrypt.genSaltSync(6);
         const hash = bcrypt.hashSync(instance.password, salt);
+        console.log(instance.password);
         instance.password = hash;
-      }
-    },
-    hooks: {
+      },
       afterCreate(instance) {
         sendEmail(instance.email, `Success Create New Account}`);
       }

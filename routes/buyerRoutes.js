@@ -7,7 +7,7 @@ buyerRouter.post("/login", BuyerController.loginPost);
 buyerRouter.get("/register", BuyerController.registerForm);
 buyerRouter.post("/register", BuyerController.registerPost);
 
-buyerRouter.use((req, res, next) => {
+const cekLogin = (req, res, next) => {
     console.log(req.session.userId)
     console.log(req.session.cart);
     if (req.session.userId) {
@@ -16,16 +16,20 @@ buyerRouter.use((req, res, next) => {
         const error = "Please login first"
         res.redirect(`/login?error=${error}`);
     }
-});
+}
 
-buyerRouter.get("/", BuyerController.home);
+// buyerRouter.use((req, res, next) => {
+    
+// });
 
-buyerRouter.get("/cart", BuyerController.cart);
-buyerRouter.get("/cart/add/:id", BuyerController.addItemToCart);
-buyerRouter.get("/checkout", BuyerController.checkout);
-buyerRouter.get("/historytransactions", BuyerController.historyTransaction);
-buyerRouter.get("/logout", BuyerController.logout);
-buyerRouter.get("/categories/:idCategory", BuyerController.produkByCategory);
-buyerRouter.get("/categories/:idCategory/:id", BuyerController.detailProduk);
+buyerRouter.get("/", cekLogin, BuyerController.home);
+
+buyerRouter.get("/cart", cekLogin,BuyerController.cart);
+buyerRouter.get("/cart/add/:id", cekLogin,BuyerController.addItemToCart);
+buyerRouter.get("/checkout", cekLogin,BuyerController.checkout);
+buyerRouter.get("/historytransactions",cekLogin, BuyerController.historyTransaction);
+buyerRouter.get("/logout",cekLogin, BuyerController.logout);
+buyerRouter.get("/categories/:idCategory",cekLogin, BuyerController.produkByCategory);
+buyerRouter.get("/categories/:idCategory/:id", cekLogin,BuyerController.detailProduk);
 
 module.exports = buyerRouter;

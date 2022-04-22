@@ -11,7 +11,7 @@ sellerRouter.post("/register", SellerController.registerPost);
 sellerRouter.use(function(req, res, next){
   if(!req.session.userId){
     const errors = 'Please login first'
-    res.redirect(`/login?error=${errors}`)
+    res.redirect(`/seller/login?error=${errors}`)
   }else{
     next();
   }
@@ -20,7 +20,7 @@ sellerRouter.use(function(req, res, next){
 sellerRouter.use(function(req, res, next){
   if(req.session.userId && req.session.role !== 'seller'){
     const errors = 'You have no acccess'
-    res.redirect(`/login?error=${errors}`)
+    res.redirect(`/seller/login?error=${errors}`)
   }else{
     next();
   }
