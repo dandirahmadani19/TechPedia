@@ -68,7 +68,7 @@ class BuyerController {
     }
     static detailProduk(req, res) {
         const id = req.params.id;
-        Product.findByPk(+id)
+        Product.detailProduk(+id)
             .then(products => {
                 res.render("./buyer/detailProduct", { products , formatter});
             }).catch(err => {

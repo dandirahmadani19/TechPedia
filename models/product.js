@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
       Product.belongsTo(models.Category);
       Product.belongsToMany(models.Transaction, { through: "TransactionItems" });
     }
+
+    static detailProduk(id) {
+      return Product.findByPk(id);
+    }
   }
   Product.init({
     name: {
